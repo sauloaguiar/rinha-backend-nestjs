@@ -43,6 +43,7 @@ services:
 
   db: # Banco de dados
     image: postgres
+    container_name: database
     # volumes:
     environment:
       POSTGRES_PASSWORD: 'postgres'

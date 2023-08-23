@@ -1,0 +1,16 @@
+{
+  "type": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "rinha_backend",
+  "migrationsTableName": "migration",
+  "migrations": [
+    "src/migrations/*.ts"
+  ],
+  "entities": [
+    null
+  ],
+  "ssl": false
+}

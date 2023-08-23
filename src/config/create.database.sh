@@ -1,0 +1,1 @@
+echo "CREATE DATABASE rinha_backend ENCODING 'UTF-8'; CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" | docker exec -i database psql -U postgres
