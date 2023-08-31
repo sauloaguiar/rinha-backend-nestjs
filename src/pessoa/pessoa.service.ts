@@ -14,6 +14,27 @@ export class PessoaService {
     return await this.pessoaRepository.find();
   }
 
+  public async getByTerm(term: string) {
+    const query = `
+      SELECT
+          id,
+          apelido,
+          nome,
+          to_char(nascimento, 'YYYY-MM-DD') as nascimento,
+          stack
+      FROM
+          pessoa
+      WHERE
+        to_tsvector('english', apelido) @@ plainto_tsquery('"${term}":*')
+        OR to_tsvector('english', nome) @@ plainto_tsquery('"${term}":*')
+        OR to_tsvector('english', stack) @@ plainto_tsquery('"${term}":*')
+      LIMIT 50;
+    `;
+    const rawQuery = await this.pessoaRepository.manager.query(query);
+
+    return rawQuery;
+  }
+
   public async getById(id: string) {
     return await this.pessoaRepository.findOneBy({ id });
   }
@@ -23,17 +44,13 @@ export class PessoaService {
       where: [{ apelido: pessoa.apelido }],
     });
 
-    if (existingPessoa) {
+    if (existingPessoa && existingPessoa.length > 0) {
       throw new UnprocessableEntityException(
         'Pessoa com esse apelido ja existe',
       );
     }
 
-    const a = await this.pessoaRepository.create(pessoa);
-    console.log('pessoa', a);
-    const b = await this.pessoaRepository.save(a);
-    console.log('return', b);
-    return b;
+    return await this.pessoaRepository.save(pessoa);
   }
 
   public async getContagem() {

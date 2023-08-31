@@ -56,6 +56,7 @@ class ConfigService {
       // },
 
       ssl: this.isProduction(),
+      logging: true,
     };
   }
 }

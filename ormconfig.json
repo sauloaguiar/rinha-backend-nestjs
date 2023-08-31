@@ -12,5 +12,6 @@
   "entities": [
     null
   ],
-  "ssl": false
+  "ssl": false,
+  "logging": true
 }

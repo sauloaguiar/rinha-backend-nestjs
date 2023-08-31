@@ -14,6 +14,6 @@ export class Pessoa {
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   nascimento: Date;
 
-  @Column('text', { array: true })
+  @Column({ type: 'jsonb' })
   stack: string[];
 }

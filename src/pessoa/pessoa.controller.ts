@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Query,
 } from '@nestjs/common';
 import { PessoaService } from './pessoa.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
@@ -14,8 +15,12 @@ export class PessoaController {
   constructor(private pessoaService: PessoaService) { }
 
   @Get('/')
-  public async getAll() {
-    return await this.pessoaService.getAll();
+  public async getAll(@Query('t') t: string) {
+    if (!t) {
+      return await this.pessoaService.getAll();
+    }
+
+    return await this.pessoaService.getByTerm(t);
   }
 
   @Get('/:id')

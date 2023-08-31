@@ -8,7 +8,7 @@ export class AddPessoas1692401788187 implements MigrationInterface {
         nome varchar NOT NULL,
         apelido varchar NOT NULL,
         nascimento timestamptz NOT NULL DEFAULT now(),
-        stack text[],
+        stack JSON,
         primary key (id)
       );
     `);
